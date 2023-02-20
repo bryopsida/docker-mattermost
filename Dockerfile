@@ -40,6 +40,7 @@ RUN mkdir config && chown mattermost:mattermost config && \
 COPY --from=build /build/bin/mattermost .
 COPY --from=build /build/i18n ./i18n
 USER mattermost
+ENV PATH $PWD:$PATH
 CMD ["mattermost"]
 EXPOSE 8065 8067 8074 8075
 HEALTHCHECK --interval=30s --timeout=10s \
