@@ -30,10 +30,10 @@ RUN ./build.sh
 FROM alpine:latest
 RUN apk add --no-cache bash curl
 RUN addgroup -g 10001 mattermost && \
-  adduser -u 10001 -G mattermost -h /home/mattermost -D mattermost
+  adduser -u 10001 -G mattermost -h /mattermost -D mattermost
 
 
-WORKDIR /home/mattermost
+WORKDIR /mattermost
 RUN mkdir config && chown mattermost:mattermost config && \
   mkdir logs && chown mattermost:mattermost logs
 
@@ -44,4 +44,4 @@ CMD ["mattermost"]
 EXPOSE 8065 8067 8074 8075
 HEALTHCHECK --interval=30s --timeout=10s \
   CMD curl -f http://localhost:8065/api/v4/system/ping || exit 1
-VOLUME ["/home/mattermost/data", "/home/mattermost/logs", "/home/mattermost/config", "/home/mattermost/plugins", "/home/mattermost/client/plugins"]
+VOLUME ["/mattermost/data", "/mattermost/logs", "/mattermost/config", "/mattermost/plugins", "/mattermost/client/plugins"]
