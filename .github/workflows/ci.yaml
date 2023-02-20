@@ -1,0 +1,18 @@
+name: CI
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "22 4 * * *"
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build-container:
+    name: "Build container image"
+    uses: curium-rocks/flows/.github/workflows/oci-build-image.yml@main
+    with:
+      registry: ghcr.io/bryopsida
+      image_name: mattermost
+      push_in_pr: true
